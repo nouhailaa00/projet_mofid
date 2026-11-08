@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFPPT | Authentification</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="login">
+
+<div class="background">
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+</div>
+
+<header>
+    <div class="brand">
+        <div class="logo">
+            <!-- Remplacez par le chemin de votre logo -->
+            <img src="logo.png" alt="Logo OFPPT">
+        </div>
+        <p class="center-name">Centre Mixte de Formation Professionnelle</p>
+    </div>
+    <div class="status">
+        <i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></i>
+        Portail sécurisé
+    </div>
+</header>
+
+<main>
+    <section class="welcome">
+        <div class="tag">
+            <i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="currentColor"/></svg></i>
+            ESPACE ADMINISTRATIF
+        </div>
+        <h1>
+            La vie scolaire,<br>
+            <span>en toute simplicité.</span>
+        </h1>
+        <p>
+            Bienvenue sur votre espace de gestion scolaire.
+            Gérez les stagiaires, suivez les absences et
+            organisez la vie de votre établissement en un seul endroit.
+        </p>
+        <div class="features">
+            <div class="feature"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></i> Gestion des stagiaires</div>
+            <div class="feature"><i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg></i> Suivi des absences</div>
+            <div class="feature"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></i> Rapports scolaires</div>
+        </div>
+    </section>
+
+    <section class="login-card">
+        <div class="card-icon">
+            <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><circle cx="12" cy="10" r="2.5"/><path d="M7.5 17c.8-2 2.5-3 4.5-3s3.7 1 4.5 3"/></svg></i>
+        </div>
+        <h2 id="cardTitle">Bienvenue !</h2>
+        <p class="subtitle" id="cardSub">Connectez-vous à votre espace surveillant général.</p>
+
+        <!-- Formulaire de connexion -->
+        <form id="loginForm">
+            <div class="field">
+                <label for="email">Utilisateur</label>
+                <div class="input-box">
+                    <i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></i>
+                    <input type="text" id="email" name="email" placeholder="Entrez votre utilisateur" autocomplete="username" autocapitalize="off" spellcheck="false" required>
+                </div>
+            </div>
+            <div class="field">
+                <label for="password">Mot de passe</label>
+                <div class="input-box">
+                    <i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i>
+                    <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" autocomplete="current-password" required>
+                    <i class="toggle-password" id="togglePassword" role="button" tabindex="0" aria-label="Afficher le mot de passe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></i>
+                </div>
+            </div>
+            <div class="options">
+                <label class="remember">
+                    <input type="checkbox" id="remember">
+                    Se souvenir de moi
+                </label>
+                <a href="#" id="forgotPassword">Mot de passe oublié ?</a>
+            </div>
+            <button type="submit" class="submit-btn">
+                Se connecter
+                <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i>
+            </button>
+            <div class="message" id="message" role="status" aria-live="polite"></div>
+        </form>
+
+        <!-- Formulaire de réinitialisation -->
+        <form id="resetForm" style="display:none" novalidate>
+            <div id="resetStep1">
+                <button type="button" class="submit-btn" id="sendCode">Envoyer le code <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+            </div>
+            <div id="resetStep2" style="display:none">
+                <div class="field">
+                    <label for="rCode">Code reçu par e-mail</label>
+                    <div class="input-box">
+                        <i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M17 6l3 3M14 9l2 2"/></svg></i>
+                        <input type="text" id="rCode" inputmode="numeric" maxlength="6" placeholder="6 chiffres" autocomplete="one-time-code">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="rNew">Nouveau mot de passe</label>
+                    <div class="input-box">
+                        <i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i>
+                        <input type="password" id="rNew" placeholder="8 caractères minimum" autocomplete="new-password">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="rNew2">Confirmer le mot de passe</label>
+                    <div class="input-box">
+                        <i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i>
+                        <input type="password" id="rNew2" placeholder="Répétez le mot de passe" autocomplete="new-password">
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Changer le mot de passe</button>
+            </div>
+            <div class="message" id="resetMessage" role="status" aria-live="polite"></div>
+            <p style="text-align:center;margin-top:18px"><a href="#" id="backLogin" style="color:var(--blue);font-size:11px;font-weight:600;text-decoration:none">← Retour à la connexion</a></p>
+        </form>
+
+        <div class="divider"></div>
+        <div class="security">
+            <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="M12 2v20"/></svg></i>
+            Accès réservé au personnel autorisé
+        </div>
+    </section>
+</main>
+
+<footer>
+    <span>© 2026 OFPPT — Espace Vie Scolaire</span>
+    <span>Excellence · Organisation · Réussite</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
