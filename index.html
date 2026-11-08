@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OFPPT | Authentification</title>
+    <!-- ربط ملف التصميم -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background">
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+</div>
+
+<header>
+    <div class="background">
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+</div>
+
+<header>
+    <div class="brand">
+        <div class="logo">
+            <img src="data:image/png;base64,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 चौहान" alt="Logo officiel OFPPT">
+        </div>
+        <p class="center-name">Centre Mixte de Formation Professionnelle</p>
+    </div>
+
+    <div class="status">
+        <i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></i>
+        Portail sécurisé
+    </div>
+</header>
+
+<main>
+
+    <section class="welcome">
+        <div class="tag">
+            <i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="currentColor"/></svg></i>
+            ESPACE ADMINISTRATIF
+        </div>
+
+        <h1>
+            La vie scolaire,<br>
+            <span>en toute simplicité.</span>
+        </h1>
+
+        <p>
+            Bienvenue sur votre espace de gestion scolaire.
+            Gérez les stagiaires, suivez les absences et
+            organisez la vie de votre établissement en un seul endroit.
+        </p>
+
+        <div class="features">
+            <div class="feature"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></i> Gestion des stagiaires</div>
+            <div class="feature"><i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg></i> Suivi des absences</div>
+            <div class="feature"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></i> Rapports scolaires</div>
+        </div>
+    </section>
+
+    <section class="login-card">
+        <div class="card-icon">
+            <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><circle cx="12" cy="10" r="2.5"/><path d="M7.5 17c.8-2 2.5-3 4.5-3s3.700 1 4.500 3"/></svg></i>
+        </div>
+
+        <h2 id="cardTitle">Bienvenue !</h2>
+        <p class="subtitle" id="cardSub">
+            Connectez-vous à votre espace surveillant général.
+        </p>
+
+        <form id="loginForm">
+            <div class="field">
+                <label for="email">Utilisateur</label>
+                <div class="input-box">
+                    <i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></i>
+                    <input type="text" id="email" name="email" placeholder="Entrez votre utilisateur" autocomplete="username" autocapitalize="off" spellcheck="false" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="password">Mot de passe</label>
+                <div class="input-box">
+                    <i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i>
+                    <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" autocomplete="current-password" required>
+                    <i class="toggle-password" id="togglePassword" role="button" tabindex="0" aria-label="Afficher le mot de passe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></i>
+                </div>
+            </div>
+
+            <div class="options">
+                <label class="remember">
+                    <input type="checkbox" id="remember">
+                    Se souvenir de moi
+                </label>
+                <a href="#" id="forgotPassword">Mot de passe oublié ?</a>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Se connecter
+                <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i>
+            </button>
+
+            <div class="message" id="message" role="status" aria-live="polite"></div>
+        </form>
+        
+        <!-- نموذج استعادة كلمة المرور المخفي -->
+        <form id="resetForm" style="display:none" novalidate>
+            <div id="resetStep1">
+                <button type="button" class="submit-btn" id="sendCode">Envoyer le code <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+            </div>
+            <div id="resetStep2" style="display:none">
+                <div class="field"><label for="rCode">Code reçu par e-mail</label>
+                    <div class="input-box"><i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M17 6l3 3M14 9l2 2"/></svg></i><input type="text" id="rCode" inputmode="numeric" maxlength="6" placeholder="6 chiffres" autocomplete="one-time-code"></div></div>
+                <div class="field"><label for="rNew">Nouveau mot de passe</label>
+                    <div class="input-box"><i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i><input type="password" id="rNew" placeholder="8 caractères minimum" autocomplete="new-password"></div></div>
+                <div class="field"><label for="rNew2">Confirmer le mot de passe</label>
+                    <div class="input-box"><i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i><input type="password" id="rNew2" placeholder="Répétez le mot de passe" autocomplete="new-password"></div></div>
+                <button type="submit" class="submit-btn">Changer le mot de passe</button>
+            </div>
+            <div class="message" id="resetMessage" role="status" aria-live="polite"></div>
+            <p style="text-align:center;margin-top:18px"><a href="#" id="backLogin" style="color:#1769ff;font-size:11px;font-weight:600;text-decoration:none">← Retour à la connexion</a></p>
+        </form>
+
+
+        <div class="divider"></div>
+
+        <div class="security">
+            <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.400 9.400 8 11 4.600-1.600 8-6 8-11V5z"/><path d="M12 2v20" /></svg></i>
+            Accès réservé au personnel autorisé
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <span>© 2026 OFPPT — Espace Vie Scolaire</span>
+    <span>Excellence · Organisation · Réussite</span>
+</footer>
+    <script src="script.js"></script>
+</body>
+</html>
