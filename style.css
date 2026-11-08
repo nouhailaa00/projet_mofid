@@ -1,0 +1,404 @@
+/* =========================================================
+   OFPPT — Page de connexion
+   Sommaire : 1. Variables  2. Base  3. En-tête  4. Intro
+              5. Carte  6. Formulaire  7. Fonctionnalités
+              8. Pied de page  9. Responsive
+   ========================================================= */
+
+
+/* ---------- 1. Variables (thème clair par défaut) ---------- */
+:root {
+    --bg:          #eaeff7;
+    --bg-glow-1:   #d3e1fb;
+    --bg-glow-2:   #cdeee8;
+    --surface:     #fafbfe;
+    --surface-alt: #eff3f9;
+    --border:      #d9e1ee;
+    --text:        #14213d;
+    --muted:       #5f6f87;
+    --accent:      #2f6bff;
+    --accent-dark: #1f56e0;
+    --accent-soft: #e8efff;
+    --success:     #12a37f;
+    --danger:      #d0334b;
+    --danger-soft: #fdeef0;
+    --success-soft:#e5f8f1;
+    --shadow:      0 20px 50px rgba(30, 60, 120, .12);
+
+    /* Bouton de thème : foncé en mode clair pour bien ressortir */
+    --toggle-bg:   #14213d;
+    --toggle-fg:   #ffffff;
+
+    --radius-lg: 24px;
+    --radius-md: 12px;
+    color-scheme: light;
+}
+
+/* ---------- Thème sombre ---------- */
+[data-theme="dark"] {
+    --bg:          #0c1322;
+    --bg-glow-1:   #14305f;
+    --bg-glow-2:   #0d3d46;
+    --surface:     #141e33;
+    --surface-alt: #1a2640;
+    --border:      #26344f;
+    --text:        #e8eefb;
+    --muted:       #9aa9c4;
+    --accent:      #5b8cff;
+    --accent-dark: #3f74f5;
+    --accent-soft: #1b2b52;
+    --success:     #3ed6aa;
+    --danger:      #ff7a8e;
+    --danger-soft: #3a1823;
+    --success-soft:#11342d;
+    --shadow:      0 20px 50px rgba(0, 0, 0, .45);
+
+    /* Bouton de thème : ambre en mode sombre */
+    --toggle-bg:   #ffc857;
+    --toggle-fg:   #14213d;
+    color-scheme: dark;
+}
+
+
+/* ---------- 2. Base ---------- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 10% 0%,   var(--bg-glow-1) 0, transparent 40%),
+        radial-gradient(circle at 90% 100%, var(--bg-glow-2) 0, transparent 40%),
+        var(--bg);
+    transition: background-color .3s, color .3s;
+}
+
+/* Toutes les icônes SVG partagent le même style */
+svg {
+    width: 1em; height: 1em;
+    fill: none; stroke: currentColor;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    flex-shrink: 0;
+}
+
+/* L'attribut hidden doit toujours masquer l'élément */
+[hidden] { display: none !important; }
+
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; border: none; background: none; }
+
+:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 2px; }
+
+
+/* ---------- 3. En-tête ---------- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: clamp(16px, 3vw, 24px) 6%;
+    gap: 12px;
+}
+
+.brand { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+
+.logo {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+.logo { transition: transform .3s, box-shadow .3s; }
+.logo:hover { transform: scale(1.05); box-shadow: 0 24px 55px rgba(47, 107, 255, .25); }
+.logo img { width: 100%; height: 100%; object-fit: cover; }
+
+.brand-name {
+    max-width: 210px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.header-actions { display: flex; align-items: center; gap: 12px; }
+
+.badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 12px; font-weight: 500;
+    transition: border-color .2s, transform .2s;
+}
+.badge:hover { border-color: var(--success); transform: translateY(-2px); }
+.badge svg { font-size: 15px; color: var(--success); }
+
+/* Bouton thème : la lune en clair, le soleil en sombre */
+.theme-toggle {
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--toggle-bg);
+    color: var(--toggle-fg);
+    font-size: 19px;
+    box-shadow: 0 6px 16px rgba(20, 33, 61, .25);
+    transition: transform .3s, box-shadow .3s;
+}
+.theme-toggle:hover { transform: rotate(20deg) scale(1.08); box-shadow: 0 8px 22px rgba(20, 33, 61, .35); }
+.theme-toggle:active { transform: scale(.94); }
+.theme-toggle .icon-sun  { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+
+/* ---------- Mise en page principale ---------- */
+.main {
+    flex: 1;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 10px clamp(16px, 4vw, 24px) 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+
+/* ---------- 4. Introduction ---------- */
+.intro { text-align: center; }
+
+.tag {
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+    border-radius: 30px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.intro h1 {
+    font-size: clamp(28px, 6vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+.intro .accent { color: var(--accent); }
+
+.intro p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+
+/* ---------- 5. Carte de connexion ---------- */
+.card {
+    width: 100%;
+    padding: clamp(22px, 5vw, 32px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    transition: transform .3s, box-shadow .3s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 28px 60px rgba(30, 60, 120, .18); }
+
+.card-head { display: flex; align-items: center; gap: 16px; margin-bottom: 26px; }
+
+.card-icon {
+    transition: transform .3s, background-color .3s, color .3s;
+    width: 52px; height: 52px;
+    display: grid; place-items: center;
+    border-radius: 16px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 24px;
+}
+
+.card:hover .card-icon { transform: rotate(-8deg) scale(1.08); background: var(--accent); color: #fff; }
+
+.card h2 { font-size: 22px; font-weight: 700; }
+.card-sub { margin-top: 4px; font-size: 12px; line-height: 1.6; color: var(--muted); }
+
+.secure-note {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 24px; padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--muted);
+}
+.secure-note svg { color: var(--success); font-size: 14px; }
+
+
+/* ---------- 6. Formulaire ---------- */
+.field { margin-bottom: 18px; }
+.field label { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 600; }
+
+.input {
+    display: flex; align-items: center; gap: 12px;
+    height: 50px; padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface-alt);
+    color: var(--muted);
+    transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+.input svg { font-size: 17px; }
+.input:hover { border-color: var(--accent); }
+.input:focus-within {
+    border-color: var(--accent);
+    background: var(--surface);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    color: var(--accent);
+}
+
+.input input {
+    flex: 1; min-width: 0;
+    border: none; outline: none; background: transparent;
+    font-size: 13px; color: var(--text);
+}
+.input input::placeholder { color: var(--muted); opacity: .7; }
+
+.eye {
+    display: grid; place-items: center;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    color: var(--muted); font-size: 18px;
+    transition: color .2s, background-color .2s;
+}
+.eye:hover { color: var(--accent); background: var(--accent-soft); }
+.eye .icon-hide { display: none; }
+.eye.is-visible .icon-show { display: none; }
+.eye.is-visible .icon-hide { display: block; }
+.eye.is-visible { color: var(--accent); }
+
+.options {
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    margin: 4px 0 22px;
+    font-size: 12px;
+}
+.remember { display: flex; align-items: center; gap: 8px; color: var(--muted); cursor: pointer; }
+.remember input { accent-color: var(--accent); width: 15px; height: 15px; }
+.options a {
+    color: var(--accent); font-weight: 600; text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
+    transition: background-size .25s;
+}
+.options a:hover { background-size: 100% 2px; }
+
+.btn {
+    width: 100%; min-height: 50px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    border-radius: var(--radius-md);
+    background: var(--accent);
+    color: #fff;
+    font-size: 14px; font-weight: 600;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 30%, transparent);
+    transition: background-color .2s, transform .2s;
+}
+.btn svg { font-size: 17px; transition: transform .2s; }
+.btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
+.btn:hover svg { transform: translateX(4px); }
+.btn:active { transform: scale(.98); }
+
+/* Mot de passe oublié */
+#loginForm, #resetForm { animation: view-in .3s ease; }
+@keyframes view-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.hint { margin: -4px 0 18px; font-size: 11px; line-height: 1.6; color: var(--muted); }
+
+.text-btn {
+    display: block; margin: 14px auto 0;
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    transition: opacity .2s;
+}
+.text-btn:hover { opacity: .75; text-decoration: underline; }
+
+.back-link {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 20px;
+    font-size: 12px; font-weight: 600; color: var(--muted); text-decoration: none;
+    transition: color .2s, gap .2s;
+}
+.back-link:hover { color: var(--accent); gap: 10px; }
+.back-link svg { font-size: 15px; }
+
+/* Messages d'erreur / succès (affichés par le JavaScript) */
+.message { display: none; margin-top: 16px; padding: 12px; border-radius: 10px; font-size: 12px; line-height: 1.6; }
+.message.error   { display: block; background: var(--danger-soft);  color: var(--danger); }
+.message.success { display: block; background: var(--success-soft); color: var(--success); }
+
+
+/* ---------- 7. Fonctionnalités ---------- */
+.features {
+    list-style: none;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+}
+.features li {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 12px; font-weight: 500;
+}
+.features li { transition: transform .25s, border-color .25s, background-color .25s, color .25s; }
+.features li:hover { transform: translateY(-3px); border-color: var(--accent); background: var(--accent-soft); color: var(--text); }
+.features svg { font-size: 15px; color: var(--accent); }
+
+
+/* ---------- 8. Pied de page ---------- */
+.footer {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 0 6% 22px;
+    font-size: 11px; color: var(--muted);
+}
+
+
+/* ---------- 9. Responsive ---------- */
+
+/* Grands écrans : un peu plus d'espace */
+@media (min-width: 1200px) {
+    .main { max-width: 540px; gap: 34px; }
+    .intro h1 { font-size: 42px; }
+}
+
+/* Tablettes et mobiles */
+@media (max-width: 700px) {
+    .header { padding-left: 20px; padding-right: 20px; }
+    .badge  { display: none; }
+    .logo   { width: 80px; height: 80px; }
+    .brand-name { font-size: 10px; max-width: 170px; }
+    .options { flex-wrap: wrap; }
+    .footer { flex-direction: column; text-align: center; padding: 0 20px 20px; }
+}
+
+/* Très petits écrans */
+@media (max-width: 380px) {
+    .card-head { flex-direction: column; align-items: flex-start; }
+    .features li { width: 100%; justify-content: center; }
+}
+
+/* Écrans peu hauts (mobile en paysage) */
+@media (max-height: 560px) {
+    .logo { width: 64px; height: 64px; }
+    .main { gap: 18px; }
+}
+
+/* Écrans tactiles : pas d'effets de survol "collants" */
+@media (hover: none) {
+    .card:hover, .logo:hover, .features li:hover, .badge:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: .01ms !important; }
+}
