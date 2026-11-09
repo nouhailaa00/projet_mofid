@@ -1,45 +1,45 @@
 /* =========================================================
    OFPPT — auth.js
-   Vérification de l'utilisateur et du mot de passe.
+   التحقق من اسم المستخدم وكلمة المرور.
 
-   Le mot de passe n'est jamais stocké en clair : on garde
-   uniquement son empreinte (hash PBKDF2-SHA256 + sel).
+   كلمة المرور لا تُخزَّن أبداً كنص صريح: نحتفظ فقط
+   ببصمتها (hash بخوارزمية PBKDF2-SHA256 مع salt).
 
-   Intégration : <script src="auth.js" defer></script>
-   à ajouter dans index.html (en plus de script.js).
+   الربط: <script src="auth.js" defer></script>
+   يُضاف في index.html (بالإضافة إلى script.js).
    ========================================================= */
 
 (() => {
     'use strict';
 
-    /* ---------- 1. Configuration ---------- */
+    /* ---------- 1. الإعدادات ---------- */
 
     const CONFIG = {
         dashboardPage: 'dashboard.html',
         sessionKey:    'ofppt_session',
-        iterations:    150000,            // doit être identique à celle utilisée pour créer les hash
-        maxAttempts:   5,                 // essais autorisés avant blocage
-        lockSeconds:   60,                // durée du blocage
-        sessionHours:  8,                 // durée de session normale
-        rememberDays:  30                 // durée avec « Se souvenir de moi »
+        iterations:    150000,            // يجب أن تكون نفس القيمة المستخدمة عند إنشاء الـ hash
+        maxAttempts:   5,                 // عدد المحاولات المسموحة قبل القفل
+        lockSeconds:   60,                // مدة القفل بالثواني
+        sessionHours:  8,                 // مدة الجلسة العادية بالساعات
+        rememberDays:  30                 // المدة عند تفعيل «Se souvenir de moi» بالأيام
     };
 
-    /* Comptes autorisés.
-       Pour créer un nouveau compte : ouvrez la console du navigateur et tapez
-           Auth.createAccount('nom@ofppt', 'MotDePasse')
-       puis copiez le résultat ici. */
+    /* الحسابات المسموحة.
+    لإنشاء حساب جديد: افتح Console في المتصفح واكتب
+        Auth.createAccount('nom@ofppt', 'MotDePasse')
+       ثم انسخ النتيجة إلى هنا. */
     const ACCOUNTS = [
         {
             username: 'admin',
             name:     'Administration',
-            email:    'boraahled12@gmail.com',   // adresse qui reçoit le code de réinitialisation
-            salt:     '27fed048ded467dfb2cc3b9b516c8fb0',
-            hash:     'd789ab4dbcd5c173fbcdb4068c4c1b4458edef744bb37c38501e16ee7d2384b4'
-            // Mot de passe de démonstration : Ofppt@2026  (à changer !)
+            email:    'boraahled12@gmail.com',   // العنوان الذي يستقبل رمز إعادة التعيين
+            salt:     '17fbed0a8b6d106fc7730ca861dbc3fd',
+            hash:     'b5fa42dc18166c9b7ec3fdda24249e50d0dfe8803c73724de78291ec48581aba'
+            // كلمة المرور التجريبية: Ofppt@2026  (يجب تغييرها!)
         }
     ];
 
-    const PASSWORDS_KEY = 'ofppt_passwords';   // mots de passe modifiés (hash uniquement)
+    const PASSWORDS_KEY = 'ofppt_passwords';   // كلمات المرور المعدَّلة (الـ hash فقط)
 
     const MESSAGES = {
         invalid:   'Utilisateur ou mot de passe incorrect.',
@@ -50,12 +50,12 @@
     };
 
 
-    /* ---------- 2. Hachage ---------- */
+    /* ---------- 2. التجزئة (Hash) ---------- */
 
     const hexToBytes = hex => Uint8Array.from(hex.match(/../g).map(b => parseInt(b, 16)));
     const bytesToHex = bytes => [...new Uint8Array(bytes)].map(b => b.toString(16).padStart(2, '0')).join('');
 
-    /** Calcule le hash PBKDF2-SHA256 d'un mot de passe avec un sel (en hexadécimal). */
+    /** يحسب hash بخوارزمية PBKDF2-SHA256 لكلمة مرور مع salt (بصيغة hex). */
     async function hashPassword(password, saltHex) {
         const key = await crypto.subtle.importKey(
             'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']
@@ -67,7 +67,7 @@
         return bytesToHex(bits);
     }
 
-    /** Comparaison à temps constant (évite de révéler où les chaînes diffèrent). */
+    /** مقارنة بزمن ثابت (لا تكشف أين تختلف النصوص). */
     function safeEqual(a, b) {
         if (a.length !== b.length) return false;
         let diff = 0;
@@ -75,10 +75,10 @@
         return diff === 0;
     }
 
-    /** Génère un sel aléatoire (hexadécimal). */
+    /** يولّد salt عشوائياً (بصيغة hex). */
     const randomSalt = () => bytesToHex(crypto.getRandomValues(new Uint8Array(16)));
 
-    /** Outil de création de compte : à utiliser dans la console du navigateur. */
+    /** أداة إنشاء حساب: تُستخدم من Console في المتصفح. */
     async function createAccount(username, password) {
         const salt = randomSalt();
         const hash = await hashPassword(password, salt);
@@ -88,9 +88,9 @@
     }
 
 
-    /* ---------- 3. Comptes et vérification des identifiants ---------- */
+    /* ---------- 3. الحسابات والتحقق من بيانات الدخول ---------- */
 
-    // Faux compte : même durée de calcul quand l'utilisateur n'existe pas
+    // حساب وهمي: نفس زمن الحساب عندما لا يكون المستخدم موجوداً
     const DUMMY = { salt: '00000000000000000000000000000000', hash: '' };
 
     const normalize = username => username.trim().toLowerCase();
@@ -104,12 +104,12 @@
         catch (e) { return {}; }
     }
 
-    /** Sel + hash actuels d'un compte (mot de passe modifié s'il existe). */
+    /** salt و hash الحاليان للحساب (كلمة المرور المعدَّلة إن وُجدت). */
     function getCredentials(account) {
         return readOverrides()[account.username] || account;
     }
 
-    /** Enregistre un nouveau mot de passe (uniquement son hash). */
+    /** يحفظ كلمة مرور جديدة (الـ hash فقط). */
     async function setPassword(username, newPassword) {
         const account = findAccount(username);
         if (!account) throw new Error('Compte introuvable');
@@ -121,7 +121,7 @@
         localStorage.setItem(PASSWORDS_KEY, JSON.stringify(overrides));
     }
 
-    /** Retourne le compte si les identifiants sont valides, sinon null. */
+    /** يعيد الحساب إن كانت البيانات صحيحة، وإلا null. */
     async function verifyCredentials(username, password) {
         const account = findAccount(username);
         const target  = account ? getCredentials(account) : DUMMY;
@@ -133,7 +133,7 @@
     }
 
 
-    /* ---------- 4. Limitation des tentatives ---------- */
+    /* ---------- 4. تحديد عدد المحاولات ---------- */
 
     const ATTEMPTS_KEY = 'ofppt_attempts';
 
@@ -159,7 +159,7 @@
     function resetAttempts() { writeAttempts({ count: 0, lockedUntil: 0 }); }
 
 
-    /* ---------- 5. Session ---------- */
+    /* ---------- 5. الجلسة ---------- */
 
     function startSession(account, remember) {
         const hours = remember ? CONFIG.rememberDays * 24 : CONFIG.sessionHours;
@@ -174,7 +174,7 @@
             sessionStorage.removeItem(CONFIG.sessionKey);
             localStorage.removeItem(CONFIG.sessionKey);
             storage.setItem(CONFIG.sessionKey, JSON.stringify(session));
-        } catch (e) { /* stockage bloqué par le navigateur */ }
+        } catch (e) { /* التخزين محجوب من المتصفح */ }
     }
 
     function getSession() {
@@ -198,11 +198,11 @@
     }
 
 
-    /* ---------- 6. Formulaire de connexion ---------- */
+    /* ---------- 6. نموذج تسجيل الدخول ---------- */
 
     function initLoginForm() {
         const form      = document.getElementById('loginForm');
-        if (!form) return;                         // on n'est pas sur la page de connexion
+        if (!form) return;                         // لسنا في صفحة تسجيل الدخول
 
         const userInput = document.getElementById('email');
         const passInput = document.getElementById('password');
@@ -210,7 +210,7 @@
         const message   = document.getElementById('message');
         const button    = form.querySelector('button[type="submit"]');
 
-        // Déjà connecté : direct au tableau de bord
+        // مسجَّل دخوله مسبقاً: مباشرة إلى لوحة التحكم
         if (isLoggedIn()) {
             window.location.replace(CONFIG.dashboardPage);
             return;
@@ -262,14 +262,14 @@
     document.addEventListener('DOMContentLoaded', initLoginForm);
 
 
-    /* ---------- 7. API publique ----------
-       Dans dashboard.html :
+    /* ---------- 7. الواجهة العامة (API) ----------
+       في dashboard.html :
            if (!Auth.isLoggedIn()) window.location.replace('index.html');
            document.getElementById('logout').onclick = () => Auth.logout();   */
 
     window.Auth = {
         isLoggedIn, getSession, logout, createAccount,
-        // utilisées par reset.js
+        // تستخدمها reset.js
         findAccount, setPassword, verifyCredentials, hashPassword, randomSalt, safeEqual
     };
 })();

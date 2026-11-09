@@ -10,14 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- Appliqué dans <head> pour éviter le flash du thème clair au chargement -->
+    <!-- يُطبَّق داخل <head> لتفادي وميض الوضع الفاتح عند التحميل -->
     <script src="script.js"></script>
     <script src="auth.js" defer></script>
     <script src="reset.js" defer></script>
 </head>
 <body>
 
-    <!-- ========== En-tête ========== -->
+    <!-- ========== الهيدر ========== -->
     <header class="header">
         <div class="brand">
             <div class="logo">
@@ -39,17 +39,17 @@
         </div>
     </header>
 
-    <!-- ========== Contenu principal ========== -->
+    <!-- ========== المحتوى الرئيسي ========== -->
     <main class="main">
 
-        <!-- Texte d'accueil -->
+        <!-- نص الترحيب -->
         <section class="intro">
             <span class="tag">Espace administratif</span>
             <h1>La vie scolaire, <span class="accent">en toute simplicité.</span></h1>
             <p>Gérez les stagiaires, suivez les absences et organisez votre établissement en un seul endroit.</p>
         </section>
 
-        <!-- Carte de connexion -->
+        <!-- بطاقة تسجيل الدخول -->
         <section class="card">
             <div class="card-head">
                 <div class="card-icon">
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <!-- ========== Connexion ========== -->
+            <!-- ========== تسجيل الدخول ========== -->
             <form id="loginForm" novalidate>
                 <div class="field">
                     <label for="email">Utilisateur</label>
@@ -99,10 +99,10 @@
                 <div class="message" id="message" role="status" aria-live="polite"></div>
             </form>
 
-            <!-- ========== Mot de passe oublié ========== -->
+            <!-- ========== نسيت كلمة المرور ========== -->
             <form id="resetForm" hidden novalidate>
 
-                <!-- Étape 1 : demander le code -->
+                <!-- الخطوة 1: طلب الرمز -->
                 <div id="resetStep1">
                     <div class="field">
                         <label for="rUser">Utilisateur</label>
@@ -117,7 +117,7 @@
                     </button>
                 </div>
 
-                <!-- Étape 2 : saisir le code et le nouveau mot de passe -->
+                <!-- الخطوة 2: إدخال الرمز وكلمة المرور الجديدة -->
                 <div id="resetStep2" hidden>
                     <div class="field">
                         <label for="rCode">Code reçu par e-mail</label>
@@ -171,7 +171,7 @@
             </p>
         </section>
 
-        <!-- Fonctionnalités -->
+        <!-- الميزات -->
         <ul class="features">
             <li>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg>

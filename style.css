@@ -1,12 +1,12 @@
 /* =========================================================
-   OFPPT — Page de connexion
-   Sommaire : 1. Variables  2. Base  3. En-tête  4. Intro
-              5. Carte  6. Formulaire  7. Fonctionnalités
-              8. Pied de page  9. Responsive
+   OFPPT — صفحة تسجيل الدخول
+   الفهرس : 1. المتغيرات  2. الأساس  3. الهيدر  4. المقدمة
+            5. البطاقة  6. النموذج  7. الميزات
+            8. الفوتر  9. التجاوب
    ========================================================= */
 
 
-/* ---------- 1. Variables (thème clair par défaut) ---------- */
+/* ---------- 1. المتغيرات (الوضع الفاتح افتراضياً) ---------- */
 :root {
     --bg:          #eaeff7;
     --bg-glow-1:   #d3e1fb;
@@ -25,7 +25,7 @@
     --success-soft:#e5f8f1;
     --shadow:      0 20px 50px rgba(30, 60, 120, .12);
 
-    /* Bouton de thème : foncé en mode clair pour bien ressortir */
+    /* زر الثيم: داكن في الوضع الفاتح ليظهر بوضوح */
     --toggle-bg:   #14213d;
     --toggle-fg:   #ffffff;
 
@@ -34,7 +34,7 @@
     color-scheme: light;
 }
 
-/* ---------- Thème sombre ---------- */
+/* ---------- الوضع الليلي ---------- */
 [data-theme="dark"] {
     --bg:          #0c1322;
     --bg-glow-1:   #14305f;
@@ -53,14 +53,14 @@
     --success-soft:#11342d;
     --shadow:      0 20px 50px rgba(0, 0, 0, .45);
 
-    /* Bouton de thème : ambre en mode sombre */
+    /* زر الثيم: بلون كهرماني في الوضع الليلي */
     --toggle-bg:   #ffc857;
     --toggle-fg:   #14213d;
     color-scheme: dark;
 }
 
 
-/* ---------- 2. Base ---------- */
+/* ---------- 2. الأساس ---------- */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -76,7 +76,7 @@ body {
     transition: background-color .3s, color .3s;
 }
 
-/* Toutes les icônes SVG partagent le même style */
+/* كل أيقونات SVG تشترك في نفس النمط */
 svg {
     width: 1em; height: 1em;
     fill: none; stroke: currentColor;
@@ -84,7 +84,7 @@ svg {
     flex-shrink: 0;
 }
 
-/* L'attribut hidden doit toujours masquer l'élément */
+/* الخاصية hidden يجب أن تخفي العنصر دائماً */
 [hidden] { display: none !important; }
 
 button, input { font: inherit; color: inherit; }
@@ -93,7 +93,7 @@ button { cursor: pointer; border: none; background: none; }
 :focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 2px; }
 
 
-/* ---------- 3. En-tête ---------- */
+/* ---------- 3. الهيدر ---------- */
 .header {
     display: flex;
     justify-content: space-between;
@@ -142,7 +142,7 @@ button { cursor: pointer; border: none; background: none; }
 .badge:hover { border-color: var(--success); transform: translateY(-2px); }
 .badge svg { font-size: 15px; color: var(--success); }
 
-/* Bouton thème : la lune en clair, le soleil en sombre */
+/* زر الثيم: القمر في الوضع الفاتح والشمس في الليلي */
 .theme-toggle {
     width: 44px; height: 44px;
     display: grid; place-items: center;
@@ -160,7 +160,7 @@ button { cursor: pointer; border: none; background: none; }
 [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
 
-/* ---------- Mise en page principale ---------- */
+/* ---------- التخطيط الرئيسي ---------- */
 .main {
     flex: 1;
     width: 100%;
@@ -174,7 +174,7 @@ button { cursor: pointer; border: none; background: none; }
 }
 
 
-/* ---------- 4. Introduction ---------- */
+/* ---------- 4. المقدمة ---------- */
 .intro { text-align: center; }
 
 .tag {
@@ -200,7 +200,7 @@ button { cursor: pointer; border: none; background: none; }
 .intro p { color: var(--muted); font-size: 14px; line-height: 1.7; }
 
 
-/* ---------- 5. Carte de connexion ---------- */
+/* ---------- 5. بطاقة تسجيل الدخول ---------- */
 .card {
     width: 100%;
     padding: clamp(22px, 5vw, 32px);
@@ -238,7 +238,7 @@ button { cursor: pointer; border: none; background: none; }
 .secure-note svg { color: var(--success); font-size: 14px; }
 
 
-/* ---------- 6. Formulaire ---------- */
+/* ---------- 6. النموذج ---------- */
 .field { margin-bottom: 18px; }
 .field label { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 600; }
 
@@ -309,7 +309,7 @@ button { cursor: pointer; border: none; background: none; }
 .btn:hover svg { transform: translateX(4px); }
 .btn:active { transform: scale(.98); }
 
-/* Mot de passe oublié */
+/* نسيت كلمة المرور */
 #loginForm, #resetForm { animation: view-in .3s ease; }
 @keyframes view-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
@@ -331,13 +331,13 @@ button { cursor: pointer; border: none; background: none; }
 .back-link:hover { color: var(--accent); gap: 10px; }
 .back-link svg { font-size: 15px; }
 
-/* Messages d'erreur / succès (affichés par le JavaScript) */
+/* رسائل الخطأ / النجاح (تعرضها JavaScript) */
 .message { display: none; margin-top: 16px; padding: 12px; border-radius: 10px; font-size: 12px; line-height: 1.6; }
 .message.error   { display: block; background: var(--danger-soft);  color: var(--danger); }
 .message.success { display: block; background: var(--success-soft); color: var(--success); }
 
 
-/* ---------- 7. Fonctionnalités ---------- */
+/* ---------- 7. الميزات ---------- */
 .features {
     list-style: none;
     display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
@@ -356,7 +356,7 @@ button { cursor: pointer; border: none; background: none; }
 .features svg { font-size: 15px; color: var(--accent); }
 
 
-/* ---------- 8. Pied de page ---------- */
+/* ---------- 8. الفوتر ---------- */
 .footer {
     display: flex; justify-content: space-between; gap: 12px;
     padding: 0 6% 22px;
@@ -364,15 +364,15 @@ button { cursor: pointer; border: none; background: none; }
 }
 
 
-/* ---------- 9. Responsive ---------- */
+/* ---------- 9. التجاوب مع الشاشات ---------- */
 
-/* Grands écrans : un peu plus d'espace */
+/* الشاشات الكبيرة: مساحة أوسع قليلاً */
 @media (min-width: 1200px) {
     .main { max-width: 540px; gap: 34px; }
     .intro h1 { font-size: 42px; }
 }
 
-/* Tablettes et mobiles */
+/* التابلت والجوال */
 @media (max-width: 700px) {
     .header { padding-left: 20px; padding-right: 20px; }
     .badge  { display: none; }
@@ -382,19 +382,19 @@ button { cursor: pointer; border: none; background: none; }
     .footer { flex-direction: column; text-align: center; padding: 0 20px 20px; }
 }
 
-/* Très petits écrans */
+/* الشاشات الصغيرة جداً */
 @media (max-width: 380px) {
     .card-head { flex-direction: column; align-items: flex-start; }
     .features li { width: 100%; justify-content: center; }
 }
 
-/* Écrans peu hauts (mobile en paysage) */
+/* الشاشات القليلة الارتفاع (الجوال بالوضع الأفقي) */
 @media (max-height: 560px) {
     .logo { width: 64px; height: 64px; }
     .main { gap: 18px; }
 }
 
-/* Écrans tactiles : pas d'effets de survol "collants" */
+/* شاشات اللمس: بدون تأثيرات hover العالقة */
 @media (hover: none) {
     .card:hover, .logo:hover, .features li:hover, .badge:hover { transform: none; }
 }

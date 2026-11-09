@@ -1,17 +1,17 @@
 /* =========================================================
    OFPPT — script.js
-   Étape 1 : thème clair / sombre + affichage du mot de passe.
-   La logique de connexion sera ajoutée à l'étape suivante.
+   المرحلة 1: الوضع الفاتح / الليلي + إظهار كلمة المرور.
+   منطق تسجيل الدخول في الملف auth.js.
    ========================================================= */
 
 const THEME_KEY = 'ofppt_theme';
 
-// Thème enregistré, sinon celui du système
+// الثيم المحفوظ، وإلا ثيم النظام
 function getInitialTheme() {
     try {
         const saved = localStorage.getItem(THEME_KEY);
         if (saved) return saved;
-    } catch (e) { /* stockage indisponible */ }
+    } catch (e) { /* التخزين غير متاح */ }
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
@@ -20,10 +20,10 @@ function applyTheme(theme) {
     try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
 }
 
-// Appliqué immédiatement (le script est dans <head>)
+// يُطبَّق فوراً (السكريبت موجود في <head>)
 applyTheme(getInitialTheme());
 
-// ---------- Bouton du thème ----------
+// ---------- زر الثيم ----------
 function initThemeToggle() {
     const button = document.getElementById('themeToggle');
 
@@ -33,8 +33,8 @@ function initThemeToggle() {
     });
 }
 
-// ---------- Afficher / masquer un mot de passe ----------
-// Chaque bouton .eye indique son champ avec data-target="id-du-champ"
+// ---------- إظهار / إخفاء كلمة المرور ----------
+// كل زر .eye يحدد حقله عبر data-target="معرّف-الحقل"
 function initPasswordToggles() {
     document.querySelectorAll('.eye[data-target]').forEach(button => {
         const input = document.getElementById(button.dataset.target);

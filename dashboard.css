@@ -1,0 +1,174 @@
+/* =========================================================
+   OFPPT — dashboard.css
+   يُضاف إلى style.css (المتغيرات، الثيم، الهيدر، الفوتر).
+   الفهرس : 1. الهيدر  2. التخطيط  3. الترحيب
+            4. الإحصائيات  5. الأقسام  6. النشاط  7. التجاوب
+   ========================================================= */
+
+
+/* ---------- 1. هيدر لوحة التحكم ---------- */
+.brand-row { flex-direction: row; gap: 14px; }
+.logo-small { width: 56px; height: 56px; }
+.brand-name-left { text-align: left; max-width: 190px; }
+
+.user-chip {
+    display: flex; align-items: center; gap: 10px;
+    padding: 5px 14px 5px 5px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: var(--surface);
+}
+.avatar {
+    width: 32px; height: 32px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px; font-weight: 700;
+}
+.user-name { font-size: 12px; font-weight: 600; }
+
+.logout {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 44px; padding: 0 16px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 12px; font-weight: 600;
+    transition: color .2s, border-color .2s, background-color .2s, transform .2s;
+}
+.logout svg { font-size: 16px; }
+.logout:hover { color: var(--danger); border-color: var(--danger); background: var(--danger-soft); transform: translateY(-2px); }
+
+
+/* ---------- 2. التخطيط ---------- */
+.dash {
+    flex: 1;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 10px clamp(16px, 4vw, 28px) 40px;
+    display: flex; flex-direction: column; gap: 32px;
+}
+
+.section-title { margin-bottom: 14px; font-size: 16px; font-weight: 700; }
+
+
+/* ---------- 3. الترحيب ---------- */
+.welcome { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; }
+.welcome h1 { font-size: clamp(24px, 4vw, 32px); font-weight: 800; line-height: 1.2; }
+.welcome .accent { color: var(--accent); }
+.welcome p { margin-top: 6px; font-size: 13px; color: var(--muted); text-transform: capitalize; }
+
+.demo-badge {
+    padding: 6px 14px;
+    border: 1px dashed var(--border);
+    border-radius: 30px;
+    font-size: 11px; font-weight: 600; color: var(--muted);
+}
+
+
+/* ---------- 4. الإحصائيات ---------- */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+
+.stat {
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--surface);
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.stat:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--accent); }
+
+.stat-icon {
+    width: 42px; height: 42px;
+    display: grid; place-items: center;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 20px;
+}
+.stat-icon.warn { background: var(--danger-soft);  color: var(--danger); }
+.stat-icon.ok   { background: var(--success-soft); color: var(--success); }
+.stat-icon.info { background: var(--accent-soft);  color: var(--accent); }
+
+.stat-value { font-size: 30px; font-weight: 800; line-height: 1; }
+.stat-label { margin-top: 6px; font-size: 12px; color: var(--muted); }
+
+
+/* ---------- 5. الأقسام ---------- */
+.modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+
+.module {
+    display: flex; flex-direction: column;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--surface);
+    color: inherit; text-decoration: none;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.module:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--accent); }
+
+.module-icon {
+    width: 48px; height: 48px;
+    display: grid; place-items: center;
+    margin-bottom: 18px;
+    border-radius: 14px;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 22px;
+    transition: background-color .25s, color .25s;
+}
+.module:hover .module-icon { background: var(--accent); color: #fff; }
+
+.module h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.module p  { flex: 1; font-size: 12px; line-height: 1.7; color: var(--muted); }
+
+.module-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 18px;
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    transition: gap .2s;
+}
+.module-link svg { font-size: 15px; }
+.module:hover .module-link { gap: 12px; }
+
+
+/* ---------- 6. النشاط الأخير ---------- */
+.activity {
+    list-style: none;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--surface);
+    overflow: hidden;
+}
+.activity li {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px;
+    transition: background-color .2s;
+}
+.activity li + li { border-top: 1px solid var(--border); }
+.activity li:hover { background: var(--surface-alt); }
+
+.activity div { flex: 1; min-width: 0; }
+.activity strong { display: block; font-size: 13px; font-weight: 600; }
+.activity small { font-size: 11px; color: var(--muted); }
+.activity time { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+.dot { width: 10px; height: 10px; flex-shrink: 0; border-radius: 50%; background: var(--accent); }
+.dot.warn { background: var(--danger); }
+.dot.ok   { background: var(--success); }
+
+
+/* ---------- 7. التجاوب مع الشاشات ---------- */
+@media (max-width: 700px) {
+    .user-name, .logout span, .brand-name-left { display: none; }
+    .user-chip { padding: 5px; }
+    .logout { width: 44px; padding: 0; justify-content: center; }
+    .header { flex-wrap: nowrap; }
+}
+
+@media (hover: none) {
+    .stat:hover, .module:hover, .logout:hover { transform: none; }
+}
